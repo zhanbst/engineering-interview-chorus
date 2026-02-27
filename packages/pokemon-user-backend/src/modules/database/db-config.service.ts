@@ -1,7 +1,8 @@
-import { join } from 'path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { Pokemon } from '../pokemon/entities/pokemon.entity';
+import { Profile } from '../profile/entities/profile.entity';
 
 @Injectable()
 export class DbConfigService implements TypeOrmOptionsFactory {
@@ -15,7 +16,7 @@ export class DbConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('DB_USERNAME', 'admin'),
       password: this.configService.get<string>('DB_PASSWORD', 'admin'),
       database: this.configService.get<string>('DB_NAME', 'pokemon'),
-      entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
+      entities: [Pokemon, Profile],
       synchronize: true,
     };
   }
