@@ -3,7 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { startDatabase } from './modules/database/db';
@@ -17,6 +17,8 @@ async function bootstrap() {
 
   await startDatabase();
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = 3000;
