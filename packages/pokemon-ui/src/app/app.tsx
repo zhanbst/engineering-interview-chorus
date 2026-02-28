@@ -5,6 +5,7 @@ import { useProfiles } from './hooks/useProfiles';
 import { ProfileSelector } from './components/ProfileSelector';
 import { TeamDisplay } from './components/TeamDisplay';
 import { PokemonGrid } from './components/PokemonGrid';
+import { colors } from './theme/colors';
 
 const Page = styled.div`
   max-width: 1200px;
@@ -15,10 +16,11 @@ const Page = styled.div`
 
 const Title = styled.h1`
   margin: 0 0 24px;
+  color: ${colors.primary};
 `;
 
 const ErrorText = styled.p`
-  color: #e63946;
+  color: ${colors.error};
 `;
 
 export function App() {
@@ -40,6 +42,11 @@ export function App() {
     selectProfile(id);
     const profile = profiles.find((p) => p.id === id);
     setSelectedIds(profile?.pokemon.map((p) => p.id) ?? []);
+  };
+
+  const handleUnselectProfile = () => {
+    selectProfile(0);
+    setSelectedIds([]);
   };
 
   const handleCreateProfile = async (name: string) => {
@@ -81,6 +88,7 @@ export function App() {
         profiles={profiles}
         selectedProfile={selectedProfile}
         onSelect={handleSelectProfile}
+        onUnselect={handleUnselectProfile}
         onCreate={handleCreateProfile}
       />
 

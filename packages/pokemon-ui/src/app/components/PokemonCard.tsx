@@ -1,4 +1,6 @@
+import styled from '@emotion/styled';
 import { Pokemon } from '../api/pokemon-api';
+import { colors } from '../theme/colors';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -7,21 +9,47 @@ interface PokemonCardProps {
   onClick: () => void;
 }
 
+const Card = styled.div<{ selected: boolean; isDisabled: boolean }>`
+  text-align: center;
+  padding: 12px;
+  border: 2px solid ${({ selected }) => (selected ? colors.accent : colors.border)};
+  border-radius: 8px;
+  background: ${({ selected }) => (selected ? colors.accentLight : colors.surface)};
+  cursor: ${({ isDisabled, selected }) =>
+    isDisabled && !selected ? 'not-allowed' : 'pointer'};
+  opacity: ${({ isDisabled, selected }) => (isDisabled && !selected ? 0.4 : 1)};
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  &:hover {
+    ${({ isDisabled, selected }) =>
+      !(isDisabled && !selected) &&
+      `
+      border-color: ${colors.accent};
+    `}
+  }
+`;
+
+const Sprite = styled.img`
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+`;
+
+const Name = styled.div`
+  font-size: 11px;
+  text-transform: capitalize;
+  margin-top: 4px;
+  font-weight: 500;
+`;
+
 export function PokemonCard({ pokemon, selected, disabled, onClick }: PokemonCardProps) {
   return (
-    <div
+    <Card
+      selected={selected}
+      isDisabled={disabled}
       onClick={() => (!disabled || selected) && onClick()}
-      style={{
-        textAlign: 'center',
-        padding: 12,
-        border: `2px solid ${selected ? 'red' : '#ddd'}`,
-        borderRadius: 6,
-        cursor: disabled && !selected ? 'not-allowed' : 'pointer',
-        opacity: disabled && !selected ? 0.4 : 1,
-      }}
     >
-      <img src={pokemon.spriteUrl} alt={pokemon.name} width={48} height={48} />
-      <div style={{ fontSize: 11, textTransform: 'capitalize' }}>{pokemon.name}</div>
-    </div>
+      <Sprite src={pokemon.spriteUrl} alt={pokemon.name} />
+      <Name>{pokemon.name}</Name>
+    </Card>
   );
 }
