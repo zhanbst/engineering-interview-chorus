@@ -43,3 +43,7 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+packages/pokemon-ui-e2e/**/*.png
+packages/pokemon-ui-e2e/test-results/
+packages/pokemon-ui-e2e/playwright-report/ 

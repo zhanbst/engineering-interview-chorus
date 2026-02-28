@@ -14,7 +14,7 @@ export function TeamDisplay({ team, onRemove, onSave, saving }: TeamDisplayProps
       <h3>Team ({team.length}/6)</h3>
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         {team.map((pokemon) => (
-          <TeamDisplayCard key={pokemon.id} pokemon={pokemon} onRemove={onRemove} />
+          <TeamDisplayCard key={`team-pokemon-${pokemon.id}`} pokemon={pokemon} onRemove={onRemove} />
         ))}
       </div>
       <button onClick={onSave} disabled={saving} style={{ marginTop: 8 }}>

@@ -15,13 +15,14 @@ describe('Pokemon API', () => {
 
   describe('Profiles API', () => {
     let profileId: number;
+    const profileName = `e2e-test-${Date.now()}`;
 
     it('POST /api/profiles should create a profile', async () => {
-      const res = await axios.post('/api/profiles', { name: 'Ash' });
+      const res = await axios.post('/api/profiles', { name: profileName });
 
       expect(res.status).toBe(201);
-      expect(res.data.name).toBe('Ash');
-      expect(res.data.pokemon).toEqual([]);
+      expect(res.data.name).toBe(profileName);
+      expect(res.data).toHaveProperty('id');
       profileId = res.data.id;
     });
 

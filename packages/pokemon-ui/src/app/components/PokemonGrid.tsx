@@ -16,7 +16,7 @@ export function PokemonGrid({ pokemon, selectedIds, onToggle }: PokemonGridProps
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: 6 }}>
       {pokemon.map((p) => (
         <PokemonCard
-          key={p.id}
+          key={`pokemon-${p.id}`}
           pokemon={p}
           selected={selectedIds.includes(p.id)}
           disabled={teamFull}

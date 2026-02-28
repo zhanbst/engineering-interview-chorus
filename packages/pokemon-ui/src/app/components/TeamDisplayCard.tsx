@@ -1,4 +1,3 @@
-import React from 'react';
 import { Pokemon } from '../api/pokemon-api';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 
 const TeamDisplayCard = ({ onRemove, pokemon }: Props) => {
   const { id, name, spriteUrl } = pokemon;
-  
+
   return (
     <div
       onClick={() => onRemove(id)}
